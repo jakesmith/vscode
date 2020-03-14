@@ -1,0 +1,54 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "GDB Attach proc 0",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "${workspaceFolder}/../build/Debug/bin/${input:processName}",
+            "processId": "${command:pickProcess}",
+            "linux": {
+                "MIMode": "gdb",
+                "miDebuggerPath": "/usr/bin/gdb",
+                "setupCommands": [
+                    {
+                        "text": "-enable-pretty-printing",
+                        "description": "enable pretty printing",
+                        "ignoreFailures": true
+                    },
+                    {
+                        "text": "handle SIGPIPE nostop noprint pass",
+                        "description": "ignore SIGPIPE",
+                        "ignoreFailures": true
+                    }
+                ]
+            }
+        }
+    ],
+    "inputs": [
+        {
+          "type": "pickString",
+          "id": "processName",
+          "description": "Name of process to debug",
+          "options": [
+            "thorslave_lcr",
+            "thormaster_lcr",
+            "daserver",
+            "esp",
+            "roxie",
+            "eclccserver",
+            "hthor",
+            "agentexec",
+            "eclagent"
+          ]
+        },
+        {
+          "type": "promptString",
+          "id": "pid",
+          "description": "Process ID of process to debug"
+        }
+      ]
+}
